@@ -102,7 +102,9 @@ One per day, days 1 to 7, chat-style.
 
 ## Open items raised while writing this file
 
-These need an owner decision, or are Claude's proposed default (shown), before the stage that touches them.
+The owner confirmed on 2026-10-02: use the default shown for every item below. Items 2, 4 and 6 get a second look at their stage (5, 6 and 11).
+
+Also confirmed: ignore Expo `android/` and `ios/` prebuild folders in `.gitignore`, and include the `github-actions` ecosystem in Dependabot.
 
 1. **File names.** CLAUDE.md says `COACH.md` and `STUDY.md`; the files are `Coach.md` and `Study.md`. Default: change CLAUDE.md to the real names (Linux is case-sensitive).
 2. **Birth year is ambiguous at the boundary.** Someone born in 2008 may be 17 or 18. Default: store only `age_confirmed_at` (no birth year), and treat a user as 18+ only when `current year - birth year >= 19`, or ask month and year. Needs a decision before Stage 5.
