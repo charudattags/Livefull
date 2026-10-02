@@ -1,0 +1,44 @@
+# Secrets and environment
+.env
+.env.*
+!.env.example
+*.pem
+*.p8
+*.p12
+*.key
+credentials.json
+google-services.json
+GoogleService-Info.plist
+supabase/.env
+supabase/.temp/
+supabase/.branches/
+
+# Android signing
+*.jks
+*.keystore
+*.mobileprovision
+
+# Build output
+node_modules/
+dist/
+web-build/
+build/
+coverage/
+.expo/
+.expo-shared/
+.turbo/
+*.tsbuildinfo
+# Expo prebuild output (regenerated)
+/android/
+/ios/
+
+# Logs and OS files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json

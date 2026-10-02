@@ -1,0 +1,33 @@
+#!/bin/sh
+# Blocks commits that contain secrets, using gitleaks on the staged changes.
+# Enabled by `npm run prepare` (sets core.hooksPath to .githooks).
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  cat >&2 <<'MSG'
+gitleaks is not installed, so this commit was NOT scanned for secrets.
+CI will scan it, but please install gitleaks so leaks are caught before they reach git history:
+  macOS:    brew install gitleaks
+  Windows:  winget install gitleaks.gitleaks   (or scoop install gitleaks)
+  Linux:    download a binary from https://github.com/gitleaks/gitleaks/releases
+  Go:       go install github.com/zricethezav/gitleaks/v8@latest
+MSG
+  exit 0
+fi
+
+# `gitleaks git --staged` is the current syntax; older releases only have `protect --staged`.
+if gitleaks git --help >/dev/null 2>&1; then
+  gitleaks git --staged --redact --no-banner --verbose
+else
+  gitleaks protect --staged --redact --verbose
+fi
+status=$?
+
+if [ "$status" -ne 0 ]; then
+  cat >&2 <<'MSG'
+
+Commit blocked: gitleaks found a possible secret in the staged changes.
+Remove it (and rotate it if it was real), then commit again.
+If it is a false positive, add it to .gitleaksignore with its fingerprint.
+MSG
+  exit 1
+fi
