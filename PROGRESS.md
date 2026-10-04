@@ -54,7 +54,7 @@ Stage 2: scaffold the Expo app (Expo Router, TypeScript, NativeWind) with five t
 - **Android:** `expo export --platform android` produces a Hermes bundle (3.7 MB) with no errors. This proves it compiles; it has not been run on a device or emulator (none available here). The owner opens it on a phone or emulator with `npx expo start` and presses `a`.
 - **Local checks:** `npm run typecheck`, `npm run lint`, `npm test` (2 tests) all pass. The router test was confirmed to fail when a screen is broken.
 - **expo-doctor:** 19 of 21 checks pass. The two failures (config schema, React Native Directory metadata) are network blocks from this environment, not project problems.
-- **CI:** see the status line at the end of this entry.
+- **CI green:** [CI run 4](https://github.com/charudattags/Livefull/actions/runs/37175106299) on commit `09aee5a`: type-check, lint, tests, audit gate, web export and Android export all passed, and the gitleaks scan passed. Run 3 (`66d2bab`) failed first: `tsc` could not resolve `import '../global.css'` because CI has no generated, git-ignored `expo-env.d.ts`. I reproduced it locally by removing that file, fixed it by committing `expo-types.d.ts` (a reference to `expo/types`), then ran the full CI sequence in a fresh clone before pushing.
 
 ### Known issues
 - Android has not been run on a device or emulator.
@@ -62,6 +62,8 @@ Stage 2: scaffold the Expo app (Expo Router, TypeScript, NativeWind) with five t
 - ESLint has no React or React Hooks rules yet; add `eslint-plugin-react-hooks` (check current docs) when real components arrive.
 - expo-router's testing types still describe the older sync Testing Library API; the test works around this by importing `userEvent` from Testing Library directly.
 - The default tab icons are Expo Router's placeholder triangles.
+- Typed routes (`typedRoutes`) generate `.expo/types` only when Expo runs, and that folder is git-ignored. No code uses typed hrefs yet; when it does, CI needs a step to generate them or the type-check will fail there.
+- GitHub warns that the `ubuntu-latest` runner label moves to Ubuntu 26 on 2026-10-19. Nothing to do now; watch CI after that date.
 - BUILD_PLAN.md update (Step 0) is drafted but waits for owner review.
 
 ### Next step
