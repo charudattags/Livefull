@@ -1,0 +1,17 @@
+{
+  "comment": "High or critical npm advisories we knowingly accept. Each needs a reason and a review date; after that date the audit check fails again so the entry gets re-checked.",
+  "accepted": [
+    {
+      "id": "GHSA-vfj7-8cjw-p6xm",
+      "package": "braces",
+      "reason": "No patched version exists (affects every release). Build-time glob matching used by Expo's Metro and Jest tooling; it needs attacker-controlled brace patterns on the developer machine. Not in the app bundle.",
+      "reviewBy": "2026-12-01"
+    },
+    {
+      "id": "GHSA-86w9-cpqp-85rv",
+      "package": "node-forge",
+      "reason": "No patched version exists (affects every release). Only reached through @expo/cli code-signing tooling on the developer machine. Not in the app bundle.",
+      "reviewBy": "2026-12-01"
+    }
+  ]
+}
